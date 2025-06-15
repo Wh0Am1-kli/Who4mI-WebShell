@@ -2,7 +2,7 @@
 Shell PHP dengan tampilan modern dengan **fitur upload, download, delete, navigasi folder, dan zip folder**.
 
 ![Copyright](https://img.shields.io/badge/Copyright-©%202025%20Who4mI-blue)
-![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-7.4%2B-blue?logo=php)
 
  ![Preview](https://files.catbox.moe/pq9bon.jpg)
 
