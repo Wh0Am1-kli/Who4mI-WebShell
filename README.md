@@ -1,6 +1,8 @@
 # 🧠 Who4mI WebShell
 Shell PHP dengan tampilan modern dengan **fitur upload, download, delete, navigasi folder, dan zip folder**.
 
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+
  ![Preview](https://files.catbox.moe/pq9bon.jpg)
 
 ## 🎨 Fitur
