@@ -1,8 +1,6 @@
 # 🧠 Who4mI WebShell
 Shell PHP dengan tampilan modern dengan **fitur upload, download, delete, navigasi folder, dan zip folder**.
 
-## 2011
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ![Copyright](https://img.shields.io/badge/Copyright-©%202025%20Who4mI-blue)
@@ -10,24 +8,26 @@ Shell PHP dengan tampilan modern dengan **fitur upload, download, delete, naviga
 
  ![Preview](https://files.catbox.moe/pq9bon.jpg)
 
+## 2011
+that's my birth year :v 
+
 ## 🎨 Fitur
 
 - 📁 Navigasi folder seperti file explorer
 
-- ⬆️ Upload file
+- 📤 Upload file
 
 - 🗑️ Hapus file atau folder
 
-- ⬇️ Download file langsung
+- 📥 Download file langsung
 
-- 📆 Download folder dalam bentuk .zip
+- 📦 Download folder dalam bentuk .zip
 
-- 🨭 Breadcrumb navigasi path
-
-- 🌌 Tema gelap (dark mode) dengan warna biru
+- 🗃️ Breadcrumb navigasi path
 
 - 🖼️ Background: Shiroko (Blue Archive)
 
+- 📁❌ 404: Menyamar 404Notfound
 
 ## ⚙️ instalasi
 
@@ -68,3 +68,5 @@ Untuk edukasi & penggunaan legal di lab sendiri.
 Tool ini hanya untuk **pendidikan** atau **penetration testing** di sistem sendiri.
 Penggunaan tanpa izin di sistem orang lain adalah ilegal dan tidak disarankan.
 
+Password: 
+[SHOW PASSWORD](https://github.com/Wh0Am1-kli/Who4mI-WebShell/blob/main/README.md#2011)
