@@ -43,6 +43,8 @@ http://webtarget.com/shell.php
 
 ## 💻 Penggunaan
 
+- Klik header 404 dan masukan password
+
 - Klik folder untuk navigasi masuk.
 
 - Klik tombol upload untuk mengirim file.
